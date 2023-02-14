@@ -31,6 +31,7 @@ const measureFileSizesBeforeBuild =
   FileSizeReporter.measureFileSizesBeforeBuild;
 const printFileSizesAfterBuild = FileSizeReporter.printFileSizesAfterBuild;
 const useYarn = fs.existsSync(paths.yarnLockFile);
+const { name } = require('../package');
 
 // These sizes are pretty large. We'll warn for bundles exceeding them.
 const WARN_AFTER_BUNDLE_GZIP_SIZE = 512 * 1024;
@@ -134,7 +135,15 @@ checkBrowsers(paths.appPath, isInteractive)
 // Create the production build and print the deployment instructions.
 function build(previousFileSizes) {
   console.log('Creating an optimized production build...');
-
+  config.output.library = `${name}-[name]`;
+  config.output.libraryTarget = 'umd';
+  config.output.chunkLoadingGlobal = `webpackJsonp_${name}`;
+  // config.output = {
+  //   ...config.output,
+  //   library: `${packageName}-[name]`,
+  //   libraryTarget: 'umd',
+  //   jsonpFunction: `webpackJsonp_${packageName}`,
+  // }
   const compiler = webpack(config);
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
