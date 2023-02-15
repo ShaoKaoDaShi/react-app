@@ -2,7 +2,9 @@ import Logo from './logo.svg';
 import './App.css';
 
 function App() {
-  console.log('hello world 123 123 123');
+  const a = 'hello'
+  console.log("🚀 ~ file: App.js:7 ~ App ~ a", a)
+
   return (
     <div className="App">
       <header className="App-header">
