@@ -8,7 +8,7 @@ const Test = () => {
         return () => clearTimeout(id);
     },[])
 
-    return <div onClick={() => setCount(count + 1)}>{count}</div>;
+    return <div onClick={() => setCount(count + 1)}>计数器：{count}</div>;
 }
 
 export default Test;
